@@ -7,8 +7,10 @@ let additional_info = ref('')
 let source = new EventSource(axios.defaults.baseURL + '/get_data');
 source.onmessage = function(res) {
   let data_json = JSON.parse(res.data)
-  img_url.value = 'data:image/jpg;base64,'+ data_json['img_base64']
-  additional_info.value = data_json['boxes'] + '\n' + data_json['id']
+  if(data_json['ret'] == null){
+    img_url.value = 'data:image/jpg;base64,'+ data_json['img_base64']
+    additional_info.value = data_json['boxes'] + '\n' + data_json['id']
+  }
 }
 </script>
 
